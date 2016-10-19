@@ -1,0 +1,54 @@
+export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+export JAVA_OPTS="-server -Xmx2048m -Xms1024m -XX:MaxPermSize=1024m"
+
+#show your current git branch on the command prompt
+function parse_git_branch {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "("${ref#refs/heads/}")"
+}
+
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[0;32m\]"
+FOREGROUND="\[\033[0m\]"
+PS1="$GREEN\w$YELLOW \$(parse_git_branch)$GREEN\$ $FOREGROUND"
+
+#-------------------------------------------------------------
+# The 'ls' family (this assumes you use a recent GNU ls).
+#-------------------------------------------------------------
+# Add colors for filetype and  human-readable sizes by default on 'ls':
+alias ls='ls -h --color'
+alias lx='ls -lXB'         #  Sort by extension.
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+
+# The ubiquitous 'll': directories first, with alphanumeric sorting:
+alias ll="ls -lv --group-directories-first"
+alias lm='ll |more'        #  Pipe through 'more'
+alias lr='ll -R'           #  Recursive ls.
+alias la='ls -A'           #  Show hidden files.
+alias lrt='ls -lrt'        #  Sort files in order of date.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls'
+
+alias grep='grep --color=tty -n'
+alias fgrep='fgrep --color=tty'
+alias egrep='egrep --color=tty'
+
+alias gop='gnome-open'             # shortcut from gnome-open
+
+alias catkin_make='catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo'
+alias eclipse='env LIBOVERLAY_SCROLLBAR=1 eclipse'
+
+

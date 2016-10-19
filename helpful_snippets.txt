@@ -1,0 +1,28 @@
+*Install* (copy paste it all in terminal, hit enter)
+curl -s -L -O http://mirrors.kernel.org/ubuntu/pool/universe/s/silversearcher-ag/silversearcher-ag_0.30.0-1_amd64.deb && sudo dpkg -i silversearcher-ag_0.30.0-1_amd64.deb && rm silversearcher-ag_0.30.0-1_amd64.deb
+
+*Use*
+search contents for pattern:
+ag pattern
+search contents for pattern case insensitive:
+ag -i pattern
+search contents literal (non-regex):
+ag -Q .get
+search contents matching exact word:
+ag -w word
+show filenames matching pattern:
+ag -g war$
+search contents of files with names matching pattern1 for pattern2:
+ag -G pattern1 pattern2
+search a specific file type for pattern:
+ag --java @author.*jyoung
+count occurrence of pattern per matching file:
+ag -c pattern
+
+*Regex tools*
+http://www.cuneytyilmaz.com/prog/jrx/
+https://regexper.com/
+
+
+
+
